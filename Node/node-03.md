@@ -35,10 +35,12 @@ node模块：是用js写的 做的事后台开发
 用path模块  
 
 path模块:
-   path.join(__dirname,'data.txt');
+   path.join(__dirname,'data.txt');  
+
 http模块:
    const http = require("http");
-   const server = http.createServer();
+   const server = http.createServer();  
+
    //处理请求
    server.on("request",(req,res)=>{
      req:  
@@ -53,9 +55,11 @@ http模块:
        res.write();//设置响应主体
        res.end('内容');响应结束
    })  
+  
 
    //监听  
-   server.listen(9999,( = > { console.log('服务器已开启')}));
+   server.listen(9999,( = > { console.log('服务器已开启')}));  
+   
 
 ## 根据不同的请求响应不同的页面
 
