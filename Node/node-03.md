@@ -41,7 +41,8 @@ http模块:
    const http = require("http");
    const server = http.createServer();  
 
-   //处理请求
+   //处理请求  
+   
    server.on("request",(req,res)=>{
      req:  
         req.url
@@ -59,7 +60,7 @@ http模块:
 
    //监听  
    server.listen(9999,( = > { console.log('服务器已开启')}));  
-   
+
 
 ## 根据不同的请求响应不同的页面
 
