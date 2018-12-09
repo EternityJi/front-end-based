@@ -88,4 +88,8 @@
     2.可以阻止元素被浮动元素覆盖
     3.可以包含浮动元素 -- 清除内部浮动 原理:触发父div的BFC属性  使下面的子div都处于在父div的同一个BFC区域之内
     4.分属于不同的BFC时  可以阻止margin重叠
-     
+
+  * 盒子模型的计算方法 ( box-sizing ) 
+
+  1.content-box:盒子的总宽度 = margin + border + padding + width  
+  2.border-box:  盒子的总宽度 = margin + width
