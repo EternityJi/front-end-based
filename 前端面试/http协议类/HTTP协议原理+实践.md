@@ -136,6 +136,8 @@ get:获取这个数据
 post：创建这个数据  
 put:更新这个数据  
 delete:删除这个数据
+all:
+use:
 
 * 状态码
 
@@ -347,3 +349,100 @@ cookie是有过期时间的  如果没有设置过期时间  在浏览器关闭�
 ## HTTP长连接
 
 Connection 
+
+## COOKIE 和  SESSION
+
+会话:浏览器与服务器之间的数据交流。
+
+## HTTP协议特点
+
+无状态的  多次请求之间没有相关性
+
+(即同一用户请求同一网站的不同页面  服务器无法识别是否是同一用户 发起的请求 因此用户无法进行连续的业务逻辑)
+
+无状态  无连接的含义 :
+
+    发送完对服务器的HTTP请求之后  服务器会根据你的请求  会给你发送数据过来    送完之后  会立刻中断和你的连接   不会保持   而且 也不会记录任何信息 (每次都是一个新连接)
+
+
+## cookie和 session 之分 
+
+* cookie在浏览器端的存储数据的容器
+* session在服务器端存储数据的容器
+
+## cookie
+
+
+1.在浏览器端的存储数据的容器 
+2.可以使用js对cookie进行操作 
+3.cookie允许服务器脚本在浏览器端存储数据
+4.cookie特点:在cookie中数据设置后  浏览器 再次请求服务器指定页面时   会自动携带cookie中的数据到服务器   在服务器中可以获取cookie中的数据。
+
+在APPlication中可以查看cookie信息
+
+js操作cookie
+
+document.cookie = 'name = zs';
+document.cookie = 'pwd = 123';
+
+获取cookie中的值
+document.cookie
+
+## 验证登录成功  会话保持的过程
+
+利用cookie  和 session 实现了记住状态
+
+1.先在登录界面 输入用户名 密码  向服务器发送请求  然后
+服务器验证处理请求 给予响应 登录成功  
+
+由于,http协议是无状态的,所以以后想要跳转别的页面时   也要重新登录 用户体验不好   所以 需要用cookie  seesion  技术 实现会话保持状态.
+
+
+## jquery.cookie.js插件  操作cookie
+
+//如果不设置事件
+//cookie是会话级别的   关闭浏览器 则销毁cookie
+
+$.cookie(键，值，{expires:过期天数})//设置
+$.cookie('name')//获取
+$.removeCookie('name');//删除
+
+
+注意点：
+
+* cookie中的数据 可以被同一个网站的页面所共共享  
+* 不同浏览器的cookie不能共享****
+* cookie的数据存储在浏览器中  每次请求服务器  在请求报文中 携带 cookie的数据  发送给服务器
+* 服务器端无法直接操作cookie  是通过在服务器设置响应头的方式(***) 通知浏览器对cookie进行设置
+* cookie的数据存储容量比较小   约4kb
+* 存储的cookie值中不要出现空格  等号 分号
+
+## session
+
+1.在服务器端存储数据的容器
+2.seesion容器是一个数组的形式  通过超全局变量 $_sSESSION进行取值 和设置 
+3.session在设置前  必须先session_start开启session机制
+4.seesion中的数据可以被当前网站所共享
+
+## session 和cookie原理
+
+1.session会再服务器中自动（必须开启session才行）对每个第一次访问的用户  随机生成一个sessionID (要开启session_start) 
+2.再根据sessionID   自动创建一个session会话文件(文本文件)  我们可以在其中存储该用户的数据
+3.响应时  自动在响应头中设置set-cookie   存放该用户的sessionID(键值对) (通过设置响应头的形式  通知浏览器设置并保存sessionID)
+4.将来浏览器端根据响应头  将sessionID存放到cookie中  并在下一次请求时携带
+5.下次访问时   服务器会根据sessionID找到该用户的会话文件   我们可以从session中读取用户信息   实现会话
+
+## 登录的会话保持
+
+  思路
+  1.接收用户的登录信息 
+  2.如果登录信息成功  就把用户的登录信息存储到session中 
+  3.
+  4.完成后  跳转到主页 
+
+
+
+
+
+
+
