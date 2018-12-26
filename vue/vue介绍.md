@@ -160,4 +160,247 @@ object.defineProperty:  作用
 ## vue的生命周期函数
 
 
+## 计算属性(对应的结果是一个返回值)
+
+注意:计算属性需要写成一个function    因为我们可以把复杂的逻辑放在function 
+中   计算属性一定需要有返回值 
+
+计算属性是一个属性  对应的结果是一个函数的返回值  
+用的时候  不加括号调用(因为本身是一个返回值)
+
+## 什么时候需要用计算属性 
+
+一般情况下  我们需要根据某个属性   得到另外一个结果的时候 
+
+如果没有计算属性   我们可以在插值表达式中写
+
+```javascript
+
+computed:　｛
+　　reverseMsg(){
+      //一定要有返回值
+      return this.msg.split('').reverse().join('')
+ }
+}
+
+```
+
+## 计算属性的优点  
+
+计算属性是依赖于缓存设计的 只会渲染一次 当所依赖的值不发生改变 不会重新计算
+
+而且会把计算的结果给存起来  当依赖的属性再次发生改变时 会再次计算
+
+## es6中的箭头函数
+
+## 监听属性 
+
+1.什么是监听属性
+2.了解什么是监听属性
+3.掌握监听属性的语法
+4.什么时候需要监听属性
+
+## todoMvc 
+
+一刷新 就没有了  是因为这是存储在内存里的
+
+把数据存储起来(什么时候存储  当属性改变的时候)
+
+存到localStroage  
+
+## 为什么监听属性
+
+当我们需要知道某个数据是否发生了改变 就用监听属性 
+监听属性  其实就是监听vue中某个数的改变 
+
+语法:
+
+watch: {
+  mas(value,oldvalue){
+    console.log(value,oldvalue);
+    //value 改变后的值
+    //oldvalue 之前的值
+  }
+}
+
+## vue监听数据  监听复杂数据类型
+
+
+复杂数据类型 是一个地址  监听不到  
+
+默认情况下  watch只能监听简单类型    如果监听复杂类型  只能监听到对象地址的改变  对象内部值得改变  是监听不到的
+
+
+如果监听复杂数据类型  必须用对象
+watch: {
+    car: {
+        handler: function(value){
+          console.log("监听到了变化",value)
+        },
+        是否深度监听 默认值是false
+        deep: true, //默认是false  所以直接用方法的话 是监听不到复杂数据类型的
+        //immediate：当第一次页面加载的时候  就进行监听  默认是false
+        immediate: true
+    }
+}
+
+总结: 如果监听简单数据类型  写成函数的形式
+      如果监听复杂数据类型   就写成对象的形式  deep: 值必须为true
+
+## v-cloak
+
+是为了解决插值表达式  闪烁的问题
+
+禁用网速不能用file协议  要用 http协议
+
+[v-cloak] {
+    display: none;
+}
+//属性选择器
+
+将来  开发都是基于 webpack  插值表达式
+闪烁 是因为  加载vue.js 需要时间 
+
+以后不用script加载vue.js
+
+### v-cloak使用步骤 
+
+ 1.给使用了插值表达式的元素添加一个v-cloak指令
+ 2.配合样式
+
+## v-pre
+
+表示 vue渲染的时候   直接跳过 
+
+## v-once
+
+只渲染一次
+
+这两个指令用来提高性能的  
+
+注意 :  不要过渡使用这些指令  如果真的网页比较慢  需要性能优化  才考虑使用 v-pre去跳过一些不需要编译的节点
+
+## vue的生命周期
+
+什么是vue的生命周期？
+
+了解为什么要学习vue的生命周期
+
+## vue的生命周期解释
+
+ init injections &reactivity 
+ vue会把data中所有数据通过 Object
+
+ 一般ajax发送在★★created★★中发(越早发越好)  很重要的钩子  
+ 如果需要操作DOM  就需要在★★mounted★★之后才操作
+ 如果想要拿更新完后的数据  就在updated中 写
+ 如果清除定时器  就在destroyed中执行  释放内存
+
+## $0
+
+ $0.outerHtml  不仅拿到内容 还拿到外部的标签
+
+## 虚拟dom 和diff算法
+
+## ajax与axios
+
+在vue中  自身是没有对ajax进行封装的   所以需要第三方的
+vue早期有个vue-resouce  推荐 axios
+
+axios 跟vue没有关系 
+
+## vue生命周期
+
+//1.new vue=> 2.init Events和Lifecycle (初始化一些内部的事件)=>3.调用beforeCreated(“在数据初始化之前开始调用”)函数=>4.init injections & reactivity (初始化数据) 在这个过程中  vue中 利用object.defineProperty ()给vue实例,给data添加数据和方法 ,整个数据时响应式的=>beforeMount() 在数据渲染之前调用=>5.Has el option?(有的话  看是否有template模板 )(没有el范围的话 vm.$mount(el)这个方法调用)
+//6.有模板的话  就直接用template里的模板 没有模板的话  vue会把el的outerHTML作为模板 渲染整个el标签 
+//7.beforeMount() 渲染数据之前调用 
+//8.create vm.$el  and replace "el" with it(结合vm的数据和需要渲染的模板  得到一个渲染完成的结构  把原来的el给替换掉  el不能设置成body 和 html)
+//9.mounted()  渲染之后调用 
+//10. when data changes 当数据更新时  调用  beforeUpdata()
+//11. 当虚拟DOM 重新渲染  和修改时   就调用 updated
+//12.销毁(vm.$destory())
+
+## vue过滤器
+
+对文本进行格式化
+
+将来: 格式化时间  格式化数字
+
+使用过滤器的步骤
+1.定义一个过滤器:
+
+  模板中:
+
+ ```javascript
+
+   <div id="app">
+    <p>{{msg | myfilter }}</p>
+  </div>
+
+  Vue.filter('名字',function(data){
+        return data.toUpperCase()
+  })
+  
+   const vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello vue',
+        time: new Date()
+      }
+
+```
+
+## 动态的设置数据 
+
+将来页面中需要用到的数据  都应该在data中先声明  
+
+如果增加一个响应式的数据 
+
+Vue.set(obj, name , value) 作用:增加一个响应式的数据
+
+别名: vm.$set(obj, name, value)
+      vm.$mount  vm.$destory
+
+//对象:增加或者删除一个属性
+// 数组:操作属性下标和长度检测
+
+//尽可能使用数组的方法  避  免使用下标和长度
+
+// 如果  要修改数组的长度  使用数组的方法
+
+## 操作数组
+
+可以用vm.$set(vm.list,1,"张三")
+第二个参数 是数组的下标
+
+也可以用操作数组的方法操作 
+
+## vue中异步更新问题
+
+如果vue中的数据发生了改变   让DOM也跟着改变
+
+修改完之后  无法立即获取DOM结构
+
+用Vue.nextTick vm.$nextTick
+
+Vue.nextTick(function(){
+    console.log(document.querySelector('p').innerText)
+})
+
+## 组件的注意点
+
+1. 组件是一个可复用额vue实例  组件带有名字 自定义的标签
+2. 组件的template必须有一个根元素 
+3. 组件的配置和vue实例的配置项是一样 除了el   data必须是函数
+
+必须有返回值
+
+在es6中,允许使用''定义字符串模板字符串
+1.允许换行
+2.可以使用插值${}
+
+## 组件中的data为什么要是一个函数
+
+
+是为了保证每个组件的数据是独立
 
