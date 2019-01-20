@@ -215,6 +215,43 @@
     // console.log(new A().a) 1
     // console.log(new B().a) undefine
     // console.log(new C(2).a) 2
+
+
+    // 解析地址栏参数
+    // 1. 获取地址栏参数
+    // var str = decodeURI(location.search);
+    // "?name="张三" & age = "18" "
+    //  2. 去掉第一个问号
+    // str.slice(start , end) 包含start 不包含end 
+    // end 不写 默认截取到最后
+    // var arr = str.slice(1)
+    // var obj = {};
+    // var arr = ["name=张三", "age = 18 "]
+    // var key = arr.forEach((v, i) => {
+    //   // console.log(v);
+    //   key = v.split('=')[0]; //键
+    //   // console.log(v.split('=')[0]);
+    //   value = v.split('=')[1]; //值
+    //   obj[key] = value
+    // })
+    // console.log(obj);
+
+
+
+    var obj = {}
+    var str = "?name=zs&age=18"
+    // console.log(str);
+    // 去掉?号
+    str = str.slice(1)
+    // console.log(str);
+    var arr = str.split("&")
+    arr.forEach((v, i) => {
+      key = v.split("=")[0]
+      value = v.split("=")[1]
+      obj[key] = value
+    })
+
+    console.log(obj);
   </script>
 </body>
 
